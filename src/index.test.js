@@ -51,26 +51,6 @@ describe('diffObjects', () => {
   });
 });
 
-describe('normalizeUrl', () => {
-  it('should return a string', () => {
-    const result = normalizeUrl('api/users/:id/:commentId');
-
-    expect(typeof result).toBe('string');
-  });
-
-  it('should add leading slash', () => {
-    const result = normalizeUrl('api/users/:id/:commentId');
-
-    expect(result).toBe('/api/users/:id/:commentId');
-  });
-
-  it('should remove trailing slash', () => {
-    const result = normalizeUrl('api/users/:id/:commentId/');
-
-    expect(result).toBe('/api/users/:id/:commentId');
-  });
-});
-
 describe('getParamsFromURL', () => {
   it('returns an object', () => {
     const result = getParamsFromURL(
