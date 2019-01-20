@@ -1,14 +1,9 @@
 const  {
   diffObjects,
-  getParamsFromURL,
-  normalizeUrl } = require('./index');
+  getParamsFromURL } = require('./index');
 
 describe('diffObjects', () => {
 
-
-});
-
-describe('normalizeUrl', () => {
 
 });
 
