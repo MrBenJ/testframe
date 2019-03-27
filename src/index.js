@@ -40,14 +40,28 @@ function getParamsFromURL(template, url) {
 }
 
 function getMinimum(array) {
+//   let middleIndex = Math.floor(array.length / 2);
+//   let lowIndex = 0;
+//
+//   while (array[lowIndex] > array[middleIndex]) {
+//     array = array.slice(lowIndex, middleIndex);
+//   }
+
+  console.log('SEARCHING: ', array);
   if (array.length === 1) {
+    console.log('returning', array[0]);
     return array[0];
   }
-  const middleIndex = Math.floor(array.length / 2);
 
+  const middleIndex = Math.floor(array.length / 2);
   console.log('COMPARE ', `Is ${array[0]} < ${array[middleIndex]}? `, array[0] < array[middleIndex]);
-  if (array[0] < array[middleIndex]) {
-    console.log('search right side!');
+
+  if (array[middleIndex] < array[middleIndex - 1]) {
+    return array[middleIndex];
+  }
+
+  if (array[middleIndex] > array[array.length - 1]) {
+    console.log('throw away LEFT', array.slice(0, middleIndex));
     return getMinimum(
       array.slice(
         middleIndex
@@ -55,7 +69,7 @@ function getMinimum(array) {
     );
 
   } else {
-    console.log('search left side!');
+    console.log('throw away RIGHT', array.slice(middleIndex));
     return getMinimum(
       array.slice(
         0,
