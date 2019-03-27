@@ -46,41 +46,25 @@ function getParamsFromURL(template, url) {
  *
  */
 function getMinimum(array) {
-  if (array.length === 1) {
-    return array[0];
-  }
 
-  const middleIndex = Math.floor(array.length / 2);
+}
 
-  if (array[middleIndex] < array[middleIndex - 1]) {
-    return array[middleIndex];
-  }
-
-  if (array[middleIndex] > array[array.length - 1]) {
-    return getMinimum(
-      array.slice(
-        middleIndex
-      )
-    );
-
-  } else {
-    return getMinimum(
-      array.slice(
-        0,
-        middleIndex
-      )
-    );
-  }
+/**
+ * Given a sorted array and a value, find the index of the value. Do not use
+ * Array.prototype.indexOf().
+ *
+ * If the value does not exist in the array, return -1
+ */
+function getIndex(array, element) {
 
 }
 
 module.exports = {
   diffObjects,
   getParamsFromURL,
-  getMinimum
+  getMinimum,
+  getIndex
 };
-
-
 
 
 
