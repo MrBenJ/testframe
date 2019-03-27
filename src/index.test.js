@@ -1,7 +1,9 @@
 const  {
   diffObjects,
   getParamsFromURL,
-  normalizeUrl } = require('./index');
+  normalizeUrl,
+  getIndex,
+  getMinimum } = require('./index');
 
 describe('diffObjects', () => {
 
@@ -104,5 +106,35 @@ describe('getParamsFromURL', () => {
       id: '1',
       commentId: '5'
     });
+  });
+});
+
+describe('getIndex', () => {
+
+  it('[1,2,3,4,5,6,7,8,9,10], 4', () => {
+    expect(getIndex(
+      [1,2,3,4,5,6,7,8,9,10],
+      4
+    )).toBe(3);
+  });
+
+  it('[1,2,3,4,5], 6', () => {
+    expect(getIndex(
+      [1,2,3,4,5],
+      6
+    )).toBe(-1);
+  });
+
+  it('Giant array', () => {
+    const hugeArray = [];
+
+    for(let i = 75; i < 10000; i++) {
+      hugeArray.push(i);
+    }
+
+    expect(getIndex(
+      hugeArray,
+      5475
+    )).toBe(5400)
   });
 });

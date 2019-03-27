@@ -76,11 +76,82 @@ function getParamsFromURL(template, url) {
   return output;
 }
 
+/**
+ * Take an array that's sorted, but has a single rotation in it [3,4,5,1,2].
+ * Assume no duplicate elements. Everything is unique
+ *
+ * Return the minimum element in this array.
+ *
+ */
+function getMinimum(array) {
+  if (array.length === 1) {
+    return array[0];
+  }
 
+  const middleIndex = Math.floor(array.length / 2);
+
+  if (array[middleIndex] < array[middleIndex - 1]) {
+    return array[middleIndex];
+  }
+
+  if (array[middleIndex] > array[array.length - 1]) {
+    return getMinimum(
+      array.slice(
+        middleIndex
+      )
+    );
+
+  } else {
+    return getMinimum(
+      array.slice(
+        0,
+        middleIndex
+      )
+    );
+  }
+
+}
+
+/**
+ * Given a sorted array and a value, find the index of the value. Do not use
+ * Array.prototype.indexOf().
+ *
+ * If the value does not exist in the array, return -1
+ */
+function getIndex(array, element) {
+  let leftIndex = 0;
+  let currentIndex = Math.floor(array.length / 2);
+  let rightIndex = array.length - 1;
+
+  while(array[currentIndex] !== element) {
+    if (array[currentIndex] === element) {
+      return currentIndex;
+    }
+
+    if (currentIndex === rightIndex || currentIndex === leftIndex) {
+      return -1;
+    }
+
+    if (element < array[currentIndex]) {
+      rightIndex = currentIndex;
+      currentIndex = Math.floor(currentIndex / 2);
+
+    } else {
+      leftIndex = currentIndex;
+      currentIndex = Math.floor((leftIndex + rightIndex) / 2);
+    }
+
+  }
+
+  return currentIndex;
+
+}
 
 module.exports = {
   diffObjects,
+  getParamsFromURL,
   normalizeUrl,
-  getParamsFromURL
+  getMinimum,
+  getIndex
 };
 
