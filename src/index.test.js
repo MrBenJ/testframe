@@ -31,25 +31,16 @@ describe('getMinimum', () => {
   it('[10,1,2,3,4,5,6,7,8,9]', () => {
     expect(getMinimum([10,1,2,3,4,5,6,7,8,9])).toBe(1);
   });
-});
 
-function findMinimum(arr) {
-  if (!arr || arr.length == 0) return null
-  if (arr.length == 1) return arr[0]
-  let lo = 0,
-      hi = arr.length - 1
-  const pivot = arr[arr.length - 1]
+  it('Giant array', () => {
+    const hugeArray = [];
 
-  while (lo <= hi) {
-    const mid = lo + Math.floor(hi - lo)
-    if (arr[mid] <= pivot && (mid == 0 || arr[mid] < arr[mid-1])) {
-      return arr[mid]
-    } else if (arr[mid] > pivot) {
-      lo = mid + 1
-    } else {
-      hi = mid - 1
+    for(let i = 10; i < 6000; i++) {
+      hugeArray.push(i);
     }
-  }
 
-  return null
-}
+    expect(getMinimum(
+      hugeArray.concat([1,2,3])
+    )).toBe(1);
+  });
+});
