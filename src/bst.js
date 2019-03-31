@@ -46,12 +46,28 @@ BinarySearchTree.prototype.max = function () {
 
 }
 
+BinarySearchTree.prototype.getMaxNode = function () {
+  if (this.right) {
+
+    return this.right.getMaxNode();
+  }
+  return this;
+}
+
 BinarySearchTree.prototype.min = function () {
   if (this.left) {
     return this.left.min();
   }
 
   return this.value;
+}
+
+BinarySearchTree.prototype.getMinNode = function () {
+  if (this.left) {
+    return this.left.getMinNode();
+  }
+
+  return this;
 }
 
 BinarySearchTree.prototype.contains = function (value) {
@@ -66,20 +82,52 @@ BinarySearchTree.prototype.contains = function (value) {
   }
 }
 
+BinarySearchTree.prototype.hasChildren = function () {
+  return Boolean((this.left || this.right));
+}
+
 BinarySearchTree.prototype.delete = function (value) {
-  if (this.value === value) {
-    if (this.left === null && this.right === null) {
-      this.value = null;
-    }
-
-  }
-
   const subtree = value < this.value
     ? 'left'
     : 'right';
 
-  this[subtree].delete(value);
+  if (this[subtree].value === value) {
+
+    // Leaf node? Delete this node
+    if (!this[subtree].hasChildren()) {
+      this[subtree] = null;
+
+    // Node with 2 children? Replate with left max, or right min
+    } else if (this[subtree].left && this[subtree].right) {
+      let auxNode = this[subtree].left.getMaxNode();
+
+      if (!auxNode) {
+        auxNode = this[subtree].right.getMinNode();
+      }
+
+      this[subtree] = auxNode;
+      this[subtree].left
+    } else if (this[subtree].left) {
+      this[subtree] = this[subtree].left;
+    } else if (this[subtree].right) {
+      this[subtree] = this[subtree].right;
+    }
+  } else {
+    return this[subtree].delete(value);
+  }
+}
+
+function getEvenValues(tree) {
 
 }
 
-module.exports = BinarySearchTree;
+function getOddValues(tree) {
+
+}
+
+
+module.exports = {
+  BinarySearchTree,
+  getEvenValues,
+  getOddValues
+};
